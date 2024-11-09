@@ -1,15 +1,18 @@
+using Book;  // Подключение пространства имен с сервисом
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Добавление сервиса в DI контейнер
+builder.Services.AddSingleton<INewService, NewService>();
 
+// Добавление сервисов в контейнер
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Настройка HTTP-запросов
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -17,9 +20,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
-app.MapControllers();
+app.MapControllers();  // Привязка контроллеров
 
 app.Run();
